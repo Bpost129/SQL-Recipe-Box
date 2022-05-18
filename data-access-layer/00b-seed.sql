@@ -54,9 +54,11 @@ CREATE TABLE recipes (
 -- YOUR CODE HERE
 CREATE TABLE instructions (
   id SERIAL PRIMARY KEY,
-  specification TEXT NOT NULL,
+  recipe_id INTEGER NOT NULL,
   list_order INTEGER NOT NULL,
-  recipe_id INTEGER NOT NULL FOREIGN KEY REFERENCES recipes(id)
+  specification TEXT NOT NULL,
+  FOREIGN KEY (recipe_id) REFERENCES recipes(id)
+
 );
 
 
@@ -101,8 +103,12 @@ CREATE TABLE units_of_measure (
 -- YOUR CODE HERE
 CREATE TABLE ingredients (
   id SERIAL PRIMARY KEY,
+  recipe_id INTEGER NOT NULL, --FOREIGN KEY REFERENCES recipes(id)
   amount NUMERIC(5, 2) NOT NULL,
-  unit_of_measure_id INTEGER NOT NULL FOREIGN KEY REFERENCES
+  unit_of_measure_id INTEGER NOT NULL,
+  food_stuff VARCHAR(500) NOT NULL,
+  FOREIGN KEY (recipe_id) REFERENCES recipes(id),
+  FOREIGN KEY (unit_of_measure_id) REFERENCES units_of_measure(id)
 );
 
 
